@@ -1,2 +1,2 @@
 <?php 
-$base_url = "https://api.moneyunify.com/moneyunify/";
+$base_uri = "https://api.moneyunify.com/moneyunify";

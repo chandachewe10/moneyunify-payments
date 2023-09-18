@@ -14,7 +14,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "vlucas/phpdotenv": "^5.5@dev"
+        "vlucas/phpdotenv": "^5.5@dev",
+        "guzzlehttp/guzzle": "7.9.x-dev"
     },
     "require-dev": {
         "pestphp/pest": "2.x-dev"

@@ -8,5 +8,5 @@ it('checks DotEnv', function () {
     $MONEYUNIFY_UUID = $_ENV['MONEYUNIFY_UUID'];
 
 
-    expect($MONEYUNIFY_UUID)->toEqual(3);
+    expect($MONEYUNIFY_UUID)->toEqual('01H793GDV7DJDFQJT59PD27J61');
 });
