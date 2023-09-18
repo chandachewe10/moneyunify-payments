@@ -35,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $client = new Client([
         
-        'timeout'  => 5.0,
+        'timeout'  => 300.0,
     ]);
 
     try {
 
         $response = $client->post($base_uri . '/request_payment', [
-            'body' => $postData,
+            'form_params' => $postData,
         ]);
 
 

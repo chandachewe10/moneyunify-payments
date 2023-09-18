@@ -9,7 +9,8 @@
     },
     "authors": [
         {
-            "name": "chanda chewe"
+            "name": "chanda chewe",
+            "email": "chewec03@gmail.com"
         }
     ],
     "minimum-stability": "dev",
