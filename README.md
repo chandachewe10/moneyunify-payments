@@ -22,11 +22,13 @@ composer require chandachewe/moneyunify
 The process of collecting payments is very simple. Once the package is downloaded you can do the following steps: 
 
 ```bash
- 1. You will find a file called .env.example. rename that file to .env   
- 2. Inside that .env file you will find a variable name called MONEYUNIFY_UUID. 
+ 1. If you have required the package correctly you should now see a directory called vendor. If so proceed as follows
+ 2. Create a file called .env. Include the dot(.) as in .env and not env   
+ 3. Inside that .env file you will find create variable name called MONEYUNIFY_UUID. 
  Assign that variable your MoneyUnify UUID which you were given after creating an account at:
- ``` 
+ 
  [MoneyUnify](https://moneyunify.com/)
+4. You .env file now will contain something like MONEYUNIFY_UUID = "111111LLAOOSKSKKSKS"
  
  
  
