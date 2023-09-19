@@ -305,13 +305,7 @@ final class ProgressBar
     /**
      * Returns an iterator that will automatically update the progress bar when iterated.
      *
-     * @template TKey
-     * @template TValue
-     *
-     * @param iterable<TKey, TValue> $iterable
-     * @param int|null               $max      Number of steps to complete the bar (0 if indeterminate), if null it will be inferred from $iterable
-     *
-     * @return iterable<TKey, TValue>
+     * @param int|null $max Number of steps to complete the bar (0 if indeterminate), if null it will be inferred from $iterable
      */
     public function iterate(iterable $iterable, int $max = null): iterable
     {

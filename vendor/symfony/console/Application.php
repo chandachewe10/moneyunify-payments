@@ -79,7 +79,6 @@ class Application implements ResetInterface
     private string $version;
     private ?CommandLoaderInterface $commandLoader = null;
     private bool $catchExceptions = true;
-    private bool $catchErrors = false;
     private bool $autoExit = true;
     private InputDefinition $definition;
     private HelperSet $helperSet;
@@ -173,11 +172,8 @@ class Application implements ResetInterface
 
         try {
             $exitCode = $this->doRun($input, $output);
-        } catch (\Throwable $e) {
-            if ($e instanceof \Exception && !$this->catchExceptions) {
-                throw $e;
-            }
-            if (!$e instanceof \Exception && !$this->catchErrors) {
+        } catch (\Exception $e) {
+            if (!$this->catchExceptions) {
                 throw $e;
             }
 
@@ -429,14 +425,6 @@ class Application implements ResetInterface
     public function setCatchExceptions(bool $boolean)
     {
         $this->catchExceptions = $boolean;
-    }
-
-    /**
-     * Sets whether to catch errors or not during commands execution.
-     */
-    public function setCatchErrors(bool $catchErrors = true): void
-    {
-        $this->catchErrors = $catchErrors;
     }
 
     /**

@@ -17,6 +17,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Exception\RuntimeException;
+use Symfony\Component\Process\Pipes\PipesInterface;
 use Symfony\Component\Process\Pipes\UnixPipes;
 use Symfony\Component\Process\Pipes\WindowsPipes;
 
@@ -50,39 +51,37 @@ class Process implements \IteratorAggregate
     public const ITER_SKIP_OUT = 4;     // Use this flag to skip STDOUT while iterating
     public const ITER_SKIP_ERR = 8;     // Use this flag to skip STDERR while iterating
 
-    private ?\Closure $callback = null;
-    private array|string $commandline;
-    private ?string $cwd;
-    private array $env = [];
-    /** @var resource|string|\Iterator|null */
+    private $callback;
+    private $hasCallback = false;
+    private $commandline;
+    private $cwd;
+    private $env = [];
     private $input;
-    private ?float $starttime = null;
-    private ?float $lastOutputTime = null;
-    private ?float $timeout = null;
-    private ?float $idleTimeout = null;
-    private ?int $exitcode = null;
-    private array $fallbackStatus = [];
-    private array $processInformation;
-    private bool $outputDisabled = false;
-    /** @var resource */
+    private $starttime;
+    private $lastOutputTime;
+    private $timeout;
+    private $idleTimeout;
+    private $exitcode;
+    private $fallbackStatus = [];
+    private $processInformation;
+    private $outputDisabled = false;
     private $stdout;
-    /** @var resource */
     private $stderr;
-    /** @var resource|null */
     private $process;
-    private string $status = self::STATUS_READY;
-    private int $incrementalOutputOffset = 0;
-    private int $incrementalErrorOutputOffset = 0;
-    private bool $tty = false;
-    private bool $pty;
-    private array $options = ['suppress_errors' => true, 'bypass_shell' => true];
+    private $status = self::STATUS_READY;
+    private $incrementalOutputOffset = 0;
+    private $incrementalErrorOutputOffset = 0;
+    private $tty = false;
+    private $pty;
+    private $options = ['suppress_errors' => true, 'bypass_shell' => true];
 
-    private bool $useFileHandles;
-    private WindowsPipes|UnixPipes $processPipes;
+    private $useFileHandles = false;
+    /** @var PipesInterface */
+    private $processPipes;
 
-    private ?int $latestSignal = null;
+    private $latestSignal;
 
-    private static ?bool $sigchild = null;
+    private static $sigchild;
 
     /**
      * Exit codes translation table.
@@ -201,9 +200,6 @@ class Process implements \IteratorAggregate
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-    /**
-     * @return void
-     */
     public function __wakeup()
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
@@ -304,6 +300,7 @@ class Process implements \IteratorAggregate
         $this->resetProcessData();
         $this->starttime = $this->lastOutputTime = microtime(true);
         $this->callback = $this->buildCallback($callback);
+        $this->hasCallback = null !== $callback;
         $descriptors = $this->getDescriptors();
 
         if ($this->env) {
@@ -349,12 +346,11 @@ class Process implements \IteratorAggregate
             throw new RuntimeException(sprintf('The provided cwd "%s" does not exist.', $this->cwd));
         }
 
-        $process = @proc_open($commandline, $descriptors, $this->processPipes->pipes, $this->cwd, $envPairs, $this->options);
+        $this->process = @proc_open($commandline, $descriptors, $this->processPipes->pipes, $this->cwd, $envPairs, $this->options);
 
-        if (!\is_resource($process)) {
+        if (!\is_resource($this->process)) {
             throw new RuntimeException('Unable to launch a new process.');
         }
-        $this->process = $process;
         $this->status = self::STATUS_STARTED;
 
         if (isset($descriptors[3])) {
@@ -1123,7 +1119,7 @@ class Process implements \IteratorAggregate
      *
      * This content will be passed to the underlying process standard input.
      *
-     * @param string|resource|\Traversable|self|null $input The content
+     * @param string|int|float|bool|resource|\Traversable|null $input The content
      *
      * @return $this
      *
@@ -1246,9 +1242,9 @@ class Process implements \IteratorAggregate
             $this->input->rewind();
         }
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $this->processPipes = new WindowsPipes($this->input, !$this->outputDisabled || $this->callback);
+            $this->processPipes = new WindowsPipes($this->input, !$this->outputDisabled || $this->hasCallback);
         } else {
-            $this->processPipes = new UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $this->callback);
+            $this->processPipes = new UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $this->hasCallback);
         }
 
         return $this->processPipes->getDescriptors();
@@ -1425,7 +1421,7 @@ class Process implements \IteratorAggregate
         $this->callback = null;
         $this->exitcode = null;
         $this->fallbackStatus = [];
-        $this->processInformation = [];
+        $this->processInformation = null;
         $this->stdout = fopen('php://temp/maxmemory:'.(1024 * 1024), 'w+');
         $this->stderr = fopen('php://temp/maxmemory:'.(1024 * 1024), 'w+');
         $this->process = null;

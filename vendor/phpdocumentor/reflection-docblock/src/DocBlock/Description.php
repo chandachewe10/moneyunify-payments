@@ -48,7 +48,7 @@ use function vsprintf;
  * is mainly responsible for rendering.
  *
  * @see DescriptionFactory to create a new Description.
- * @see Tags\Formatter for the formatting of the body and tags.
+ * @see Description\Formatter for the formatting of the body and tags.
  */
 class Description
 {
@@ -93,10 +93,6 @@ class Description
      */
     public function render(?Formatter $formatter = null): string
     {
-        if ($this->tags === []) {
-            return $this->bodyTemplate;
-        }
-
         if ($formatter === null) {
             $formatter = new PassthroughFormatter();
         }

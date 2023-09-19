@@ -31,7 +31,7 @@ use function trim;
  */
 final class Fqsen
 {
-    /** @var string fully qualified structural element name */
+    /** @var string full quallified class name */
     private $fqsen;
 
     /** @var string name of the element without path. */

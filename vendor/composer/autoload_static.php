@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca
+class ComposerStaticInit2abbfc53cc9fb6524d70336be3911c5d
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -102,8 +102,8 @@ class ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Whoops\\' => 
         array (
@@ -163,8 +163,8 @@ class ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -1151,7 +1151,6 @@ class ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca
         'PharIo\\Manifest\\ManifestLoader' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestLoader.php',
         'PharIo\\Manifest\\ManifestLoaderException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/ManifestLoaderException.php',
         'PharIo\\Manifest\\ManifestSerializer' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestSerializer.php',
-        'PharIo\\Manifest\\NoEmailAddressException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/NoEmailAddressException.php',
         'PharIo\\Manifest\\PhpElement' => __DIR__ . '/..' . '/phar-io/manifest/src/xml/PhpElement.php',
         'PharIo\\Manifest\\PhpExtensionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpExtensionRequirement.php',
         'PharIo\\Manifest\\PhpVersionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpVersionRequirement.php',
@@ -1402,9 +1401,9 @@ class ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbe2510cb1cde973e58ff0a6883295eca::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2abbfc53cc9fb6524d70336be3911c5d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2abbfc53cc9fb6524d70336be3911c5d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2abbfc53cc9fb6524d70336be3911c5d::$classMap;
 
         }, null, ClassLoader::class);
     }

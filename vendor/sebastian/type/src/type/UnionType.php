@@ -9,7 +9,6 @@
  */
 namespace SebastianBergmann\Type;
 
-use function assert;
 use function count;
 use function implode;
 use function sort;
@@ -43,17 +42,11 @@ final class UnionType extends Type
         return false;
     }
 
-    /**
-     * @psalm-return non-empty-string
-     */
     public function asString(): string
     {
         return $this->name();
     }
 
-    /**
-     * @psalm-return non-empty-string
-     */
     public function name(): string
     {
         $types = [];
@@ -70,11 +63,7 @@ final class UnionType extends Type
 
         sort($types);
 
-        $name = implode('|', $types);
-
-        assert(!empty($name));
-
-        return $name;
+        return implode('|', $types);
     }
 
     public function allowsNull(): bool

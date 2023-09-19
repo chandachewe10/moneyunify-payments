@@ -39,8 +39,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     public const PREG_SPLIT_DELIM_CAPTURE = \PREG_SPLIT_DELIM_CAPTURE;
     public const PREG_SPLIT_OFFSET_CAPTURE = \PREG_SPLIT_OFFSET_CAPTURE;
 
-    protected string $string = '';
-    protected ?bool $ignoreCase = false;
+    protected $string = '';
+    protected $ignoreCase = false;
 
     abstract public function __construct(string $string = '');
 
@@ -448,7 +448,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
             $delimiter .= 'i';
         }
 
-        set_error_handler(static fn ($t, $m) => throw new InvalidArgumentException($m));
+        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
 
         try {
             if (false === $chunks = preg_split($delimiter, $this->string, $limit, $flags)) {
@@ -507,7 +507,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
             return $b;
         }
 
-        set_error_handler(static fn ($t, $m) => throw new InvalidArgumentException($m));
+        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
 
         try {
             try {
