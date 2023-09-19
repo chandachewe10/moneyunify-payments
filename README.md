@@ -37,7 +37,20 @@ The process of collecting payments is very simple. Once the package is downloade
 
 
 ```bash
-run collections.php file. Thats so!!!
+1. create a file in the root directory lets name it collections.php
+2. add the following in the file: 
+
+<?php 
+require('vendor/autoload.php');
+use Chandachewe\Moneyunify\Collections\GetPayments;
+
+$form = new GetPayments();
+$form->processForm();
+echo $form->renderForm();
+?>
+
+3.  Run that file and you will see a payments form. Enter details to collect payments!!!! 
+  
 ```
 
 ## Versioning

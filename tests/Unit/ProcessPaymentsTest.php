@@ -1,12 +1,11 @@
 <?php
 require_once './vendor/autoload.php';
-require './config.php';
 use GuzzleHttp\Client;
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 
 $dotenv->safeLoad();
 
-it('checks success payments', function () use ($base_uri) {
+it('checks success payments', function () {
 
     $firstName = 'Chanda';
     $lastName = 'Chewe';
@@ -37,7 +36,7 @@ it('checks success payments', function () use ($base_uri) {
 
     
 
-        $response = $client->post($base_uri . '/request_payment', [
+        $response = $client->post('https://api.moneyunify.com/moneyunify/request_payment', [
             'form_params' => $postData,
         ]);
 
