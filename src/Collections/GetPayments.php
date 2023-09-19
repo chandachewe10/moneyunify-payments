@@ -23,7 +23,7 @@ public function __construct(){
   private function displayResponseMessage($message)
   {
     if (!empty($message)) {
-      echo '<div class="alert alert-info">' . $message . '</div>';
+      echo '<div class="alert alert-info" style="max-width: 400px;">' . $message . '</div>';
     }
   }
 
