@@ -9,7 +9,7 @@ A Moneyunify PHP Package For Payments Collections and Disbursements
 ## Requirements
 
 - PHP >= 8.1
-- MONEYUNIFY UUID
+- MONEYUNIFY UUID [MoneyUnify](https://moneyunify.com/)
 
 ## Installation
 
@@ -21,22 +21,10 @@ composer require chandachewe/moneyunify
 
 The process of collecting payments is very simple. Once the package is downloaded you can do the following steps: 
 
-```bash
- 1. If you have required the package correctly you should now see a directory called vendor. If so proceed as follows
- 2. Create a file called .env. Include the dot(.) as in .env and not env   
- 3. Inside that .env file you will find create variable name called MONEYUNIFY_UUID. 
- Assign that variable your MoneyUnify UUID which you were given after creating an account at:
- 
- [MoneyUnify](https://moneyunify.com/)
-4. You .env file now will contain something like MONEYUNIFY_UUID = "111111LLAOOSKSKKSKS"
- 
- 
- 
-
 
 
 ## Usage
-
+If you have required the package correctly you should now see a directory called vendor. If so proceed as follows
 
 ```bash
 1. create a file in the root directory lets name it collections.php
@@ -47,11 +35,12 @@ require('vendor/autoload.php');
 use Chandachewe\Moneyunify\Collections\GetPayments;
 
 $form = new GetPayments();
-$form->processForm();
+$form->processForm('YOUR MONEYUNIFY UUID HERE');
 echo $form->renderForm();
 ?>
 
-3.  Run that file and you will see a payments form. Enter details to collect payments!!!! 
+NOTE: Dont forget to replace your MONEYUNIFY UUID in the processForm() with the one you got From MoneyUnify ;
+3.  Run that file and you will see a payments form. Enter details to collect payments. Thats It!!!! 
   
 ```
 

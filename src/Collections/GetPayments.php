@@ -23,7 +23,7 @@ public function __construct(){
   private function displayResponseMessage($message)
   {
     if (!empty($message)) {
-      echo '<div class="alert alert-info" style="max-width: 400px;">' . $message . '</div>';
+      echo '<div class="alert alert-info w-80">' . $message . '</div>';
     }
   }
 
@@ -98,7 +98,7 @@ public function __construct(){
         HTML;
   }
 
-  public function processForm()
+  public function processForm($MONEYUNIFY_UUID)
   {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -121,7 +121,7 @@ public function __construct(){
         'amount' => $amount,
         'phone_number' => $phone_number,
         'transaction_details' => $transactionDetails,
-        'muid' => $_ENV['MONEYUNIFY_UUID']
+        'muid' => $_ENV['MONEYUNIFY_UUID'] ?? $MONEYUNIFY_UUID 
       ];
 
 
