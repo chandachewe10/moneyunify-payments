@@ -24,7 +24,8 @@ The process of collecting payments is very simple. Once the package is downloade
 ```bash
  1. You will find a file called .env.example. rename that file to .env   
  2. Inside that .env file you will find a variable name called MONEYUNIFY_UUID. 
- Assign that variable your MoneyUnify UUID which you were given after creating an account at:``` 
+ Assign that variable your MoneyUnify UUID which you were given after creating an account at:
+ ``` 
  [MoneyUnify](https://moneyunify.com/)
  
  
