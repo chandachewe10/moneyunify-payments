@@ -26,7 +26,7 @@ The process of collecting payments is very simple. Once the package is downloade
 ## Usage
 If you have required the package correctly you should now see a directory called vendor. If so proceed as follows
 
-```bash
+```php
 1. create a file in the root directory lets name it collections.php
 2. add the following in the file: 
 
